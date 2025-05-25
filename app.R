@@ -1,8 +1,16 @@
-library(shiny)
-library(fuzzySim)
-library(terra)
-library(DT)
-library(corrplot)
+# ---- 自动加载/安装依赖包 ----
+required_packages <- c("shiny", "fuzzySim", "terra", "DT", "corrplot")
+
+for (pkg in required_packages) {
+  if (!require(pkg, character.only = TRUE)) {
+    message("📦 缺少包：", pkg, " —— 正在尝试安装...")
+    install.packages(pkg, dependencies = TRUE)
+    if (!require(pkg, character.only = TRUE)) {
+      stop("❌ 无法加载包 ", pkg, "，请手动安装。")
+    }
+  }
+}
+
 
 options(shiny.maxRequestSize = 10000 * 1024^2)
 
